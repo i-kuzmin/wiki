@@ -1,0 +1,22 @@
+
+                    = Apple Keyboard Configuration summary =
+
+                              == Dynamic config ==
+```
+$ ls /sys/module/hid_apple/parameters/
+fnmode  iso_layout  swap_opt_cmd
+# echo 1> /sys/module/hid_apple/parameters/iso_layout
+```
+                             == Permanent config ==
+
+**/etc/modprobe.d/hid_apple.conf**
+``options hid_apple iso_layout=1 fnmode=2 swap_opt_cmd=1``
+
+**~/.Xmodmap**
+```
+! Use F12 as a Delete key
+keycode 96 = Insert Insert
+
+! Apple Keyboard - use eject as delete key;
+keycode 169 = Delete Delete
+```
