@@ -1,0 +1,14 @@
+
+== Root calculations ($\sqrt[a]{b}$) ==
+
+Direct rational powering gives incorrect results.
+According to the next statement:
+
+\(
+    x^y  = x^{a \over b} = e^{ y * ln(x)}
+\)
+
+We could calculate $ \sqrt[b]{a} $ as:
+
+``` bc> e(1/b*l(x))
+

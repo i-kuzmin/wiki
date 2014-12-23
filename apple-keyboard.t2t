@@ -10,7 +10,7 @@ fnmode  iso_layout  swap_opt_cmd
                              == Permanent config ==
 
 **/etc/modprobe.d/hid_apple.conf**
-``options hid_apple iso_layout=1 fnmode=2 swap_opt_cmd=1``
+``` options hid_apple iso_layout=1 fnmode=2 swap_opt_cmd=1
 
 **~/.Xmodmap**
 ```
