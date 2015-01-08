@@ -1,10 +1,11 @@
 
                              = Raid manipulations =
 
-                           == Add volume to RAID0 ==
-```
-# mdadm --grow /dev/md1 --raid-devices=2 --add /dev/sdb1
-```
+                           == Create RAID-0 volume ==
+``` mdadm --create --verbose /dev/md5 --level=stripe --raid-devices=2 /dev/sda5 /dev/sdb5 
+
+                           == Add volume to RAID-0/1 ==
+``` # mdadm --grow /dev/md1 --raid-devices=2 --add /dev/sdb1
 
                               == Replace volume ==
 ```
