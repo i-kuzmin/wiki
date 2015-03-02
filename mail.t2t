@@ -1,0 +1,118 @@
+
+= Mail =
+[Good Article http://dev.gentoo.org/~tomka/mail.html]
+
+https://github.com/tom111/mail-setup/
+
+== Password Managment (gnome-keyring) ==
+
+To add password:
+'''
+$ secret-tool store --label=msmtp \
+  host <host> \
+  service smtp \
+  user <username>
+
+$ secret-tool store --label=oflineimap \
+  host <host> \
+  service imap \
+  user <username>
+
+$ secret-tool lookup host <host> service imap user <user>
+'''
+
+== Fetch Mail (offlineimap) ==
+
+gnome-keyring helper script:
+'''
+#!/usb/bin/python
+
+import locale
+from subprocess import Popen, PIPE
+
+encoding = locale.getdefaultlocale()[1]
+
+def get_password(host, user):
+        (out, err) = Popen(["secret-tool", "lookup", "host", host, "user", user ], stdout=PIPE).communicate()
+        return out.decode(encoding).strip()
+'''
+
+.oflineimaprc
+'''
+[general]
+accounts = i.g.kuzmin.spb@gmail.com
+ui = ttyui
+pythonfile=~/.bin/offlineimap-helpers.py
+
+[Account i.g.kuzmin.spb@gmail.com]
+localrepository = i.g.kuzmin.spb@gmail.com-local
+remoterepository = i.g.kuzmin.spb@gmail.com-remote
+status_backend = sqlite
+
+[Repository i.g.kuzmin.spb@gmail.com-local]
+type = Maildir
+localfolders = ~/mail/i.g.kuzmin.spb@gmail.com
+
+[Repository i.g.kuzmin.spb@gmail.com-remote]
+type = Gmail
+remotehost = imap.gmail.com
+remoteuser = i.g.kuzmin.spb
+remotepasseval = get_password("imap.gmail.com", "i.g.kuzmin.spb@gmail.com")
+sslcacertfile = /etc/ssl/certs/ca-certificates.crt
+'''
+
+== Read Mail (mutt) ==
+To read html content:
+~/.muttrc
+'''
+auto_view text/html
+alternative_order text/enriched text/plain text text/html
+'''
+
+~/.mailcap
+'''
+txt/html; lynx -force_html -dump "%s"; copiousoutput
+'''
+
+.muttrc
+'''
+# Set up mutt to use our local maildir:
+set mbox_type=Maildir
+set folder=~/mail
+set spoolfile="+/i.g.kuzmin.spb@gmail.com/INBOX"
+
+# I manually manage the mailbox command so that my mailboxes come up
+# in the order I want.
+#mailboxes ="acc1/acc1" ="acc1/acc1.folder1"
+
+# One very useful feature are folder hooks which change
+# options depending on the folder you are viewing:
+
+# for instance you could do
+folder-hook i.g.kuzmin.spb@gmail.com 'set from="Ilya Kuzmin<i.g.kuzmin.spb@gmail.com>" record="+i.g.kuzmin.spb@gmail.com/sent"
+'''
+
+== Send Mail (msmtp) ==
+~/.msmtprc
+'''
+# Set default values for all following accounts.
+defaults
+tls on
+tls_trust_file /etc/ssl/certs/ca-certificates.crt
+logfile ~/.msmtp.log
+
+# Passwords are stored in gnome-keyring,
+
+# A mail service
+account i.g.kuzmin.spb@gmail.com
+host imap.google.com
+from "Ilya Kuzmin<i.g.kuzimn.spb@gmai.com>"
+tls_starttls off
+port 465
+auth on
+user i.g.kuzmin.spb@gmai.com
+account default : i.g.kuzmin.spb@gmai.com
+'''
+
+
+

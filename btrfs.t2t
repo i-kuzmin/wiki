@@ -1,0 +1,35 @@
+
+=== btrfs ===
+
+== Create image ==
+Allocate 50 Gb image.
+```
+$ dd if=/dev/zero of=<image/path> bs=$[1024*1024] count=0 seek=$[1024*50]
+```
+
+Create file system
+```
+$ mkfs.btrfs <image/path>
+```
+
+== Setup loop device ==
+```
+$ losetup /dev/loop0 <image/path>
+$ mount /dev/loop0 </mnt>
+```
+
+== Move volume ==
+Resize btrfs partition to <N> Gb.
+``` # btrfs filesystem resize <N>g /media/btrfs
+
+Copy **<N>** raw Gigabytes from **sda5** to **loop0**
+``` # dd if=/dev/sda5 of=/dev/loop0 bs=$[1024*1024] count=$[1024*<N>] conv=sync
+
+Create read only snapshot
+```
+# btrfs subvolume snapshot -r /src /BACKUP
+# sync
+# btrfs send /BACKUP |btrfs receive /dst/
+## btrfs send /media/btrfs/BKP-{0..8}-tbrikcs-2.6 |btrfs receive /mnt/
+```
+
