@@ -1,0 +1,8 @@
+
+== chmod ==
+
+Set group precisions same as user.
+''' $ chmod -R g=u .
+
+Set group for new files
+''' $ chmod -R g+s .

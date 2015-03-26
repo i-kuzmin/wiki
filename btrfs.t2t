@@ -12,6 +12,11 @@ Create file system
 $ mkfs.btrfs <image/path>
 ```
 
+Balance filesystem
+```
+# btrfs balance start -dusage=55 /media/btrfs
+```
+
 == Setup loop device ==
 ```
 $ losetup /dev/loop0 <image/path>
@@ -21,6 +26,9 @@ $ mount /dev/loop0 </mnt>
 == Move volume ==
 Resize btrfs partition to <N> Gb.
 ``` # btrfs filesystem resize <N>g /media/btrfs
+
+Use all available space.
+``` # btrfs filesystem resize max /media/btrfs
 
 Copy **<N>** raw Gigabytes from **sda5** to **loop0**
 ``` # dd if=/dev/sda5 of=/dev/loop0 bs=$[1024*1024] count=$[1024*<N>] conv=sync
