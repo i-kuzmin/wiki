@@ -1,0 +1,10 @@
+
+== gdb ==
+
+= config =
+
+Allowing attaching to foreign processes
+''' $ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+For /etc/sysctl.d/ptrace.conf
+''' kernel.yama.ptrace_scope = 0

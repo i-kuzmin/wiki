@@ -1,0 +1,17 @@
+
+== tmux ==
+
+
+= <dst> format =
+
+Ses:win.pane
+
+
+= Useful commands =
+
+Join pane to:
+'''join-pane -t <dst>
+
+Join pane from:
+'''join-pane -s <dst>
+

@@ -1,0 +1,10 @@
+
+== Useful Archlinux Packages ==
+
+= Packet Managment =
+
+[pbget http://xyne.archlinux.ca/projects/pbget/index.html] - allows download
+package from repository; in conduction with git allows handle custom packages.
+
+
+
