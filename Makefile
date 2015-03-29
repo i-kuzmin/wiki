@@ -15,7 +15,8 @@ all: $(HTML)
 
 .www/%.html: %.t2t |.www
 	echo "# $< -> $@"
-	txt2tags --config-file .tools/txt2tagsrc -t xhtml -o $@ -q $<
+	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi;
+	@txt2tags --config-file .tools/txt2tagsrc -t xhtml -o $@ -q $<
 
 clean:
 	echo "# clean"
