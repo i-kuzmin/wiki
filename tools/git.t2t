@@ -1,0 +1,15 @@
+
+== Git ==
+
+=== Remove Submodule ===
+```
+$ git submodule deinit <submodule>
+$ git rm submodule
+
+# or, if you want to leave it in your working tree
+# git rm --cached submodule
+
+$ rm -rf .git/modules/submodule
+```
+=== Update all submodules ===
+``` $ git submodule foreach git pull
