@@ -1,0 +1,18 @@
+
+== X Desktop ==
+
+= Mime type for web browser =
+'''
+$ xdg-mime default chromium.desktop x-scheme-handler/http
+$ xdg-mime default chromium.desktop x-scheme-handler/https
+$ xdg-mime default chromium.desktop text/html
+'''
+== Useful Archlinux Packages ==
+
+= Packet Managment =
+
+[pbget http://xyne.archlinux.ca/projects/pbget/index.html] - allows download
+package from repository; in conduction with git allows handle custom packages.
+
+
+
