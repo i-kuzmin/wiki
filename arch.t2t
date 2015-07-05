@@ -7,6 +7,17 @@ $ xdg-mime default chromium.desktop x-scheme-handler/http
 $ xdg-mime default chromium.desktop x-scheme-handler/https
 $ xdg-mime default chromium.desktop text/html
 '''
+
+== Timezones ==
+
+``` /usr/share/zoneinfo
+
+``` $ timedatectl list-timezones
+
+``` $ timedatectl set-timezone
+
+
+
 == Useful Archlinux Packages ==
 
 = Packet Managment =
