@@ -1,0 +1,13 @@
+
+                      == VIM latex-suit tips and trips ==
+
+                               === Templates ===
+user-defined templates:
+''' ~/.vim/after/ftplugin/latex-suite/templates/
+
+use from vim:
+''' :TTemplate
+
+                          === Insert csv to latex ===
+''' \usepackage{csvsimple} 
+''' \csvautotabular{input.csv}
