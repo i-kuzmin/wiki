@@ -1,0 +1,121 @@
+#!/bin/bash
+
+PORT=8088
+WB=chromium
+
+VAR=/var/run/wiki_srv
+
+RT=~/.wiki
+
+SRV_PID=$VAR/SimpleHTTPServer.pid
+SRV_LOG=$VAR/SimpleHTTPServer.log
+#SRV_LOG=/dev/null
+function create_var_dir()
+{
+    if ! mkdir $VAR; then
+        local user=`whoami`
+        sudo bash -c "mkdir $VAR && chown $user $VAR"
+    fi
+    if [ -d $VAR ]; then
+        echo "\"$VAR\" created"
+    fi
+}
+
+function is_running
+{
+    local PID=
+    if [ -e "$SRV_PID" ] && [ -e /proc/$(cat $SRV_PID) ]; then
+        PID=$(cat $SRV_PID)
+    fi
+    echo $PID
+}
+
+function do_run()
+{
+    if ! [ -d $VAR ]; then create_var_dir; fi
+    local PID=$(is_running)
+    if [ ! -z "$PID" ]; then
+        if [ -z "$1" ]; then
+            echo "Already running [$PID]"
+        fi
+    else
+        (cd .www \
+          && nohup python2 -m SimpleHTTPServer $PORT 2>&1 >$SRV_LOG \
+            && rm $SRV_PID ) &
+
+        PID=$(ps --ppid $! -o pid --no-headers)
+        echo $PID > $SRV_PID
+        echo "Successfully started [$PID]"
+    fi
+
+    local file=index.html
+    if [ ! -z "$1" ]; then
+        file=$1.html
+        shift;
+    fi
+    $WB http://localhost:$PORT/$file
+
+}
+
+function do_stop()
+{
+    local PID=$(is_running)
+    if [ ! -z "$PID" ]; then
+        kill $PID
+        echo "Kill signal was send to $PID"
+    else
+        if [ -e "$SRV_PID" ]; then rm $SRV_PID; fi
+        echo "Is not running"
+    fi
+}
+
+function do_edit()
+{
+    local file=$1; shift;
+    cd $RT
+    vim $file.t2t $*
+}
+
+function do_usage()
+{
+    echo $0 - local wiki helper
+}
+
+function do_wait_log()
+{
+    PID=$(is_running)
+    if [ -z "$PID" ]; then
+        echo "Server is not running"
+        return
+    fi
+    tail --pid=$PID -f -n +0 $SRV_LOG
+}
+
+function main()
+{
+    case $1 in
+        -e)
+            shift;
+            if [ -z "$0" ]; then
+                do_usage
+            else
+                do_edit $*
+            fi
+        ;;
+
+        -l) cat $SRV_LOG ;;
+        -w) do_wait_log ;; 
+
+        stop)
+            do_stop
+        ;;
+        *)
+            do_run $*
+        ;;
+        -h|--help)
+            do_usage
+        ;;
+    esac
+}
+
+main $*

@@ -1,3 +1,2 @@
 %!options(xhtml): --css-sugar
-%!postproc(xhtml): '<head>' <head><script type="text/javascript" src="../.tools/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>
-%%!postproc(xhtml): '(?<=[^$])\$(.*)\$(?=[^$])' \(\1\)
+%!includeconf: txt2tagsrc.mathjax

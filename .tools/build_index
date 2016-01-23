@@ -1,0 +1,32 @@
+#!/bin/perl -w
+
+sub put {
+    print shift . "\n" ;
+}
+
+sub main {
+    open(my $toc, "-|", "sort " . shift)
+        or die("Can't open table of content file");
+
+    put "<!DOCTYPE html>";
+    put "<html>";
+    put "  <title>Table Of Content</title>";
+    put "  <body>";
+    put "    <ul>";
+    while ( <$toc> ) {
+        chop;
+        s:^\.www/::;
+        /([\w.]+)\.html/
+            or die "Invalid toc line: \"$_\"";
+        my $tab = "      ";
+        put $tab . "<li>";
+        put $tab . "  <a href=\"$_\"/>" . $1 . "</a>";
+        put $tab . "</li>";
+    }
+    put "    </ul>";
+    put "  </body>";
+    put "</html>";
+}
+main( @ARGV);
+
+
