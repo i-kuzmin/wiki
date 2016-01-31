@@ -30,8 +30,14 @@ function is_running
     echo $PID
 }
 
+function do_make()
+{
+    make -C $RT
+}
+
 function do_run()
 {
+    do_make
     if ! [ -d $VAR ]; then create_var_dir; fi
     local PID=$(is_running)
     if [ ! -z "$PID" ]; then
@@ -39,7 +45,7 @@ function do_run()
             echo "Already running [$PID]"
         fi
     else
-        (cd .www \
+        (cd $RT/.www \
           && nohup python2 -m SimpleHTTPServer $PORT 2>&1 >$SRV_LOG \
             && rm $SRV_PID ) &
 
@@ -102,7 +108,7 @@ function main()
                 do_edit $*
             fi
         ;;
-
+        -m) do_make ;;
         -l) cat $SRV_LOG ;;
         -w) do_wait_log ;; 
 

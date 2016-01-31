@@ -24,9 +24,26 @@ all: .www/index.html
 	@echo "# build index"
 	.tools/build_index $< >$@
 
+all: .www/main.css
+.www/main.css: .tools/main.css
+	@echo "# install css"
+	cp $< $@
+
 all: .www/MathJax
 .www/MathJax: .tools/MathJax |.www
 	@echo "# install MathJax"
+	cd .www
+	ln -f -s ../$< $@
+
+all: .www/d3
+.www/d3: .tools/d3 |.www
+	@echo "# install d3"
+	cd .www
+	ln -f -s ../$< $@
+
+all: .www/js
+.www/js: .tools/js |.www
+	@echo "# install custom js"
 	cd .www
 	ln -f -s ../$< $@
 
