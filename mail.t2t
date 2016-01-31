@@ -7,7 +7,7 @@ https://github.com/tom111/mail-setup/
 == Password Managment (gnome-keyring) ==
 
 To add password:
-'''
+```
 $ secret-tool store --label=msmtp \
   host <host> \
   service smtp \
@@ -19,12 +19,12 @@ $ secret-tool store --label=oflineimap \
   user <username>
 
 $ secret-tool lookup host <host> service imap user <user>
-'''
+```
 
 == Fetch Mail (offlineimap) ==
 
 gnome-keyring helper script:
-'''
+```
 #!/usb/bin/python
 
 import locale
@@ -35,10 +35,10 @@ encoding = locale.getdefaultlocale()[1]
 def get_password(host, user):
         (out, err) = Popen(["secret-tool", "lookup", "host", host, "user", user ], stdout=PIPE).communicate()
         return out.decode(encoding).strip()
-'''
+```
 
 .oflineimaprc
-'''
+```
 [general]
 accounts = i.g.kuzmin.spb@gmail.com
 ui = ttyui
@@ -59,23 +59,23 @@ remotehost = imap.gmail.com
 remoteuser = i.g.kuzmin.spb
 remotepasseval = get_password("imap.gmail.com", "i.g.kuzmin.spb@gmail.com")
 sslcacertfile = /etc/ssl/certs/ca-certificates.crt
-'''
+```
 
 == Read Mail (mutt) ==
 To read html content:
 ~/.muttrc
-'''
+```
 auto_view text/html
 alternative_order text/enriched text/plain text text/html
-'''
+```
 
 ~/.mailcap
-'''
+```
 txt/html; lynx -force_html -dump "%s"; copiousoutput
-'''
+```
 
 .muttrc
-'''
+```
 # Set up mutt to use our local maildir:
 set mbox_type=Maildir
 set folder=~/mail
@@ -90,11 +90,11 @@ set spoolfile="+/i.g.kuzmin.spb@gmail.com/INBOX"
 
 # for instance you could do
 folder-hook i.g.kuzmin.spb@gmail.com 'set from="Ilya Kuzmin<i.g.kuzmin.spb@gmail.com>" record="+i.g.kuzmin.spb@gmail.com/sent"
-'''
+```
 
 == Send Mail (msmtp) ==
 ~/.msmtprc
-'''
+```
 # Set default values for all following accounts.
 defaults
 tls on
@@ -112,7 +112,4 @@ port 465
 auth on
 user i.g.kuzmin.spb@gmai.com
 account default : i.g.kuzmin.spb@gmai.com
-'''
-
-
-
+```

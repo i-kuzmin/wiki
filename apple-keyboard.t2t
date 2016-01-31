@@ -1,16 +1,23 @@
 
                     = Apple Keyboard Configuration summary =
-
+           [ArchLinux https://wiki.archlinux.org/index.php/Apple_Keyboard]
                               == Dynamic config ==
 ```
 $ ls /sys/module/hid_apple/parameters/
 fnmode  iso_layout  swap_opt_cmd
 # echo 1> /sys/module/hid_apple/parameters/iso_layout
 ```
+
+After [hid-apple-patched https://github.com/free5lot/hid-apple-patched] install
+```
+$ ls /sys/module/hid_apple/parameters/
+ejectcd_as_delete  fnmode  iso_layout  rightalt_as_rightctrl  swap_fn_leftctrl
+swap_opt_cmd
+```
                              == Permanent config ==
 
 **/etc/modprobe.d/hid_apple.conf**
-``` options hid_apple iso_layout=1 fnmode=2 swap_opt_cmd=1
+``` options hid_apple iso_layout=1 fnmode=2 swap_opt_cmd=1 swap_fn_leftctrl=1 rightalt_as_rightctrl=1 ejectcd_as_delete=1
 
 **~/.Xmodmap**
 ```
@@ -20,3 +27,6 @@ keycode 96 = Insert Insert
 ! Apple Keyboard - use eject as delete key;
 keycode 169 = Delete Delete
 ```
+
+Check battery capacity:
+``` $ cat /sys/class/power_supply/hid-04\:db\:56\:dd\:19\:af-battery/capacity

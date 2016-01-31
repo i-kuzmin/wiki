@@ -1,0 +1,32 @@
+
+                          = Документация к домашней Wiki =
+
+                                 == Утилита wiki ==
+Стартует простой HTTP сервер. В зависимости от аргуметов, открывает необходимую тему
+в веб-браузере или виме.
+
+                                    == MathJax ==
+- **``\( ... \)``** или **``$``** - включённые формулы;
+
+ ``$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $`` -
+              $ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $
+
+- **``\[ ... \]``** или **``$$``** - выключенные формулы.
+
+``$$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$`` -
+                        $$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$
+
+
+                          == D3 (Data-Driven-Documents) ==
+
+                            === Горизонтальные планки ===
+``d3.div.horisontalBarChart("first", dataFile: "data.csv")``
+\d3.div.horisontalBarChart("first", dataFile: "data.csv")
+
+                            === Вертикальные планки ===
+``d3.svg.verticalBarChart("second", dataFile: "data.csv")``
+
+``d3.verticalBarChart("third", dataFile: "data.csv")``
+
+\d3.svg.verticalBarChart("second", dataFile: "data.csv")
+\d3.verticalBarChart("third", dataFile: "data.csv")

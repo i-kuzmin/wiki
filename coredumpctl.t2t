@@ -1,7 +1,7 @@
 
 == Useful comands ==
 
-```coredumpctl gdb``` - invoke gdb on the last core.
+``coredumpctl gdb`` - invoke gdb on the last core.
 
 == systemd coredump ==
 
