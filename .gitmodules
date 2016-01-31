@@ -1,3 +1,6 @@
 [submodule ".tools/MathJax"]
 	path = .tools/MathJax
 	url = https://github.com/mathjax/MathJax.git
+[submodule ".tools/d3"]
+	path = .tools/d3
+	url = https://github.com/mbostock/d3.git
