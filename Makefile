@@ -1,53 +1,107 @@
-#.SUFFIXES: .t2t .html
+.PHONY: all dirs html clean deepclean
 
+all: html
+
+WWW=.www
+DIRS += ${WWW}
+deepclean: ${WWW}
+
+# -----------------------------------------------------------------------------------
+# Auxiliary help functions
+# -----------------------------------------------------------------------------------
+
+# returns current makefile directory
+mkfdir = $(patsubst %/,%,\
+			$(dir \
+				$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))))
+
+define do_copy =
+html: ${1} 
+${1}: ${2} 
+	@echo "# install $$< -> $$@"
+	mkdir -p $(dir ${1})
+	cp $$< $$@
+CLEAN += ${1} $(dir ${1})
+endef
+
+define do_link=
+html: ${1} 
+${1}: ${2} 
+	@echo "# link $$< -> $$@"
+	mkdir -p $(dir ${1})
+	cd $(dir ${1})
+	ln -f -s ../$$< $$@
+CLEAN += ${1} $(dir ${1})
+endef
+
+# -----------------------------------------------------------------------------------
+# Install files procedure 
+# -----------------------------------------------------------------------------------
+
+# Install file to WWW directory
+# @arg1 		  - MakeFile related file name
+# @arg2[optional] - WWW related destination
+define install =
+$(if ${2},\
+	$(eval $(call do_copy,${WWW}/${2},$(call mkfdir,${1})/${1})),\
+	$(eval $(call do_copy,${WWW}/${1},$(call mkfdir,${1})/${1})))
+endef
+
+define install_link =
+$(if ${2},\
+	$(eval $(call do_link,${WWW}/${2},$(call mkfdir,${1})/${1})),\
+	$(eval $(call do_link,${WWW}/${1},$(call mkfdir,${1})/${1})))
+endef
+
+# -----------------------------------------------------------------------------------
+# Include Makefiles 
+# -----------------------------------------------------------------------------------
+incfiles = $(shell find . -name 'Makefile.inc')
+include ${incfiles}
+
+# -----------------------------------------------------------------------------------
+# Build HTML from Text2Tags
+# -----------------------------------------------------------------------------------
+define t2t_html_rule = 
+html: ${1}
+${1}: ${2} |dirs
+	@echo "# $$< -> $$@"
+	txt2tags --config-file .tools/txt2tagsrc -t xhtml -o $$@ -q $$<
+CLEAN += ${1}
+endef
+
+# Converts t2t source file name to html destination file name
+t2t_to_html = $(addprefix ${WWW}/,\
+			  	$(subst /,_,\
+				$(subst .t2t$,.html,${1})))
+
+# Find t2t sources
 T2T=$(patsubst ./%, %, $(shell find . -name '*.t2t' -not -name '*.lk.t2t'))
-HTML=$(T2T:%.t2t=.www/%.html)
-DIRS=$(sort $(dir $(HTML)))
 
-.PHONY: clean
-all: $(HTML)
+# Populate rules
+$(foreach t2t,${T2T},\
+	$(eval \
+		$(call t2t_html_rule,\
+			$(call t2t_to_html,${t2t}),${t2t})))
 
-.www:
-	@mkdir -p $(DIRS)
+# -----------------------------------------------------------------------------------
+# Make Directory rules
+# -----------------------------------------------------------------------------------
+${DIRS}:
+	@echo "# make $@"
+	mkdir -p $@
 
-.www/%.html: %.t2t |.www
-	@echo "# $< -> $@"
-	@if [ ! -d $(dir $@) ]; then mkdir -p $(dir $@); fi;
-	txt2tags --config-file .tools/txt2tagsrc -t xhtml -o $@ -q $<
-	
-	@if [ ! -e .www/toc ] || ! grep "$@" .www/toc -q; then \
-		echo "$@" >> .www/toc; \
-	fi
+dirs: ${DIRS}
 
-all: .www/index.html
-.www/index.html: .www/toc 
-	@echo "# build index"
-	.tools/build_index $< >$@
-
-all: .www/main.css
-.www/main.css: .tools/main.css
-	@echo "# install css"
-	cp $< $@
-
-all: .www/MathJax
-.www/MathJax: .tools/MathJax |.www
-	@echo "# install MathJax"
-	cd .www
-	ln -f -s ../$< $@
-
-all: .www/d3
-.www/d3: .tools/d3 |.www
-	@echo "# install d3"
-	cd .www
-	ln -f -s ../$< $@
-
-all: .www/js
-.www/js: .tools/js |.www
-	@echo "# install custom js"
-	cd .www
-	ln -f -s ../$< $@
+# -----------------------------------------------------------------------------------
+# Clean rules
+# -----------------------------------------------------------------------------------
+deepclean:
+	@echo "# deepclean: remove $^"
+	rm -rf $^
 
 clean:
-	@echo "# clean"
-	rm -rf .www
+	@echo "# clean: remove $(words ${CLEAN}) files"
+	rm -rfd ${CLEAN}
 
+# -----------------------------------------------------------------------------------
