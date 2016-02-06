@@ -9,6 +9,11 @@ div.body {
     box-shadow: 0 0 10px;
 }
 
+/*Pictures*/
+img {
+    max-width: 100%;
+}
+
 /*Links*/
 a {
     text-decoration: none;

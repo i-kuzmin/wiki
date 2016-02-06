@@ -3,11 +3,11 @@
 
                                === Templates ===
 user-defined templates:
-''' ~/.vim/after/ftplugin/latex-suite/templates/
+``` ~/.vim/after/ftplugin/latex-suite/templates/
 
 use from vim:
-''' :TTemplate
+``` :TTemplate
 
                           === Insert csv to latex ===
-''' \usepackage{csvsimple} 
-''' \csvautotabular{input.csv}
+``` \usepackage{csvsimple} 
+``` \csvautotabular{input.csv}
