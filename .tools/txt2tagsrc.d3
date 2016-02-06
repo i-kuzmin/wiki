@@ -1,4 +1,4 @@
-%!postproc(xhtml):  <head>  '<head>\n<script src="d3/d3.min.js"></script>\n__D3CONFIG__'
+%!postproc(xhtml):  <head>  '<head>\n<script src="js/d3/d3.min.js"></script>\n__D3CONFIG__'
 %!postproc(xhtml): (__D3CONFIG__) '<script src="js/d3t.js"/></script>\n'
 %!style(xhtml): js/d3t.css
 %!postproc(xhtml): \\d3\.(\w+)\s*\((["\w]+)\s*,\s*(.+)\) '<svg class="chart" id=\2></svg>\n<script>d3t.\1(\2, {\3});</script>'

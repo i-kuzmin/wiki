@@ -2,16 +2,16 @@
 == tmux ==
 
 
-= <dst> format =
+=== <dst> format ===
 
-Ses:win.pane
+Sesion:window.pane
 
 
-= Useful commands =
+=== Useful commands ===
 
 Join pane to:
-'''join-pane -t <dst>
+``` join-pane -t <dst>
 
 Join pane from:
-'''join-pane -s <dst>
+``` join-pane -s <dst>
 

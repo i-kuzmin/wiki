@@ -12,4 +12,4 @@
 %!postproc(xhtml): (__MATHJAXCONFIG__) '  "HTML-CSS": { availableFonts: ["TeX"] } \n\1'
 %!postproc(xhtml): (__MATHJAXCONFIG__) '}); \n\1'
 %!postproc(xhtml): (__MATHJAXCONFIG__) '</script> \n\1'
-%!postproc(xhtml): (__MATHJAXCONFIG__) '<script type="text/javascript" async src="MathJax/MathJax.js?config=TeX-AMS_HTML"></script>'
+%!postproc(xhtml): (__MATHJAXCONFIG__) '<script type="text/javascript" async src="js/MathJax/MathJax.js?config=TeX-AMS_HTML"></script>'

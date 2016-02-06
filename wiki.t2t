@@ -5,19 +5,28 @@
 Стартует простой HTTP сервер. В зависимости от аргуметов, открывает необходимую тему
 в веб-браузере или виме.
 
+                                    == Makefile ==
+Специфичные правила могут быть определены в Makefile.inc файлах
+
+                           === Вспомогательные функции ===
+: ``$(call install,img/plan.jpg)`` - добавить файл с данными
+: ``$(mkfdir)`` - вернёт путь относительно текущего Makefile-а
+
+
                                     == MathJax ==
-- **``\( ... \)``** или **``$``** - включённые формулы;
+: **``\( ... \)``** или **``$``** - включённые формулы;
 
  ``$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $`` -
               $ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $
 
-- **``\[ ... \]``** или **``$$``** - выключенные формулы.
+: **``\[ ... \]``** или **``$$``** - выключенные формулы.
 
 ``$$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$`` -
                         $$ \frac{-b\pm\sqrt{b^2-4ac}}{2a} $$
 
 
                           == D3 (Data-Driven-Documents) ==
+Полезные абстракции реализованы в ``.tools/js/d3.js``
 
                             === Горизонтальные планки ===
 ``d3.div.horisontalBarChart("first", dataFile: "data.csv")``
@@ -29,4 +38,3 @@
 ``d3.verticalBarChart("third", dataFile: "data.csv")``
 
 \d3.svg.verticalBarChart("second", dataFile: "data.csv")
-\d3.verticalBarChart("third", dataFile: "data.csv")

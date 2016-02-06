@@ -28,17 +28,26 @@ h1 {
     font-size: 32px;
     font-weight: normal;
     line-height: 1.25;
+    text-align: center;
     text-transform: none;
     margin: 30px 0 0 0;
     word-wrap: break-word;
 }
 
 h2 {
+    text-align: center;
     font-size: 24px;
     line-height: 1.25;
     font-weight: normal;
     text-transform: none;
     margin: 30px 0 0 0;
+}
+
+h3 {
+    font-size: 18px;
+    line-height: 1.25;
+    font-weight: normal;
+    text-transform: none;
 }
 
 /*Preformed sections*/

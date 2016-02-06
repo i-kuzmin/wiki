@@ -1,5 +1,4 @@
 
                                 == diff tool ==
-
 Compare directories:
-```diff -bur folder1/ folder2/
+``` diff -bur folder1/ folder2/

@@ -36,7 +36,7 @@ var d3t = {
 
   verticalBarChart: function(id, opt)
   {
-    tWidth  = (opt.width  == null) ? 920 : opt.width;
+    tWidth  = (opt.width  == null) ? 748 : opt.width;
     tHeight = (opt.height == null) ? 500 : opt.height;
 
     var margin = {top: 20, right: 30, bottom: 30, left: 40},
