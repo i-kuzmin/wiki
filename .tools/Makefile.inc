@@ -1,2 +1,2 @@
-$(call install,main.css)
-$(call install_link,js)
+$(call install,main.css,main.css)
+$(call install_link,js,js)

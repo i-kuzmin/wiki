@@ -29,12 +29,12 @@
 Полезные абстракции реализованы в ``.tools/js/d3.js``
 
                             === Горизонтальные планки ===
-``d3.div.horisontalBarChart("first", dataFile: "data.csv")``
-\d3.div.horisontalBarChart("first", dataFile: "data.csv")
+``d3.div.horisontalBarChart("first", dataFile: "wiki/data.csv")``
+\d3.div.horisontalBarChart("first", dataFile: "wiki/data.csv")
 
                             === Вертикальные планки ===
-``d3.svg.verticalBarChart("second", dataFile: "data.csv")``
+``d3.svg.verticalBarChart("second", dataFile: "wiki/data.csv")``
 
-``d3.verticalBarChart("third", dataFile: "data.csv")``
+``d3.verticalBarChart("third", dataFile: "wiki/data.csv")``
 
-\d3.svg.verticalBarChart("second", dataFile: "data.csv")
+\d3.svg.verticalBarChart("second", dataFile: "wiki/data.csv")

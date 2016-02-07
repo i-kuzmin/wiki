@@ -20,6 +20,12 @@ a {
     color: #3572b0;
 }
 
+/*Tables*/
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
 /*Headers*/
 h1, h2, h3, h4, h5, h6 {
     color: #205081;
