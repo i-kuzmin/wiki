@@ -3,17 +3,19 @@
 all: html
 
 WWW = .www
-BLD = .build
-DIRS += ${WWW} ${BLD}
+BUILD = .build
+DIRS += ${WWW} ${BUILD}
 
-CLEAN += ${BLD}
-DEEPCLEAN += ${WWW} ${BLD}
+CLEAN += ${BUILD}
+DEEPCLEAN += ${WWW} ${BUILD}
 
 # -----------------------------------------------------------------------------------
 # Auxiliary help functions
 # -----------------------------------------------------------------------------------
 
+#
 # returns current makefile directory
+#
 mkfdir = $(patsubst %/,%,\
 			$(dir \
 				$(word $(words $(MAKEFILE_LIST)),$(MAKEFILE_LIST))))
@@ -38,7 +40,9 @@ CLEAN += ${1}
 endef
 #CLEAN += ${1} $(dir ${1})
 
+#
 # Converts t2t source file name to html destination file name
+#
 t2t_to_html = $(addprefix ${WWW}/,\
 			  	$(subst /,_,\
 				$(subst .t2t$,.html,\
@@ -48,43 +52,60 @@ t2t_to_html = $(addprefix ${WWW}/,\
 # Install files procedure 
 # -----------------------------------------------------------------------------------
 
+#
 # Install file to WWW directory
 # @arg1 		  - MakeFile related file name
 # @arg2[optional] - WWW related destination
+#
 define install =
 $(if ${2},\
 	$(eval $(call do_copy,${WWW}/${2},$(mkfdir)/${1})),\
-	$(eval $(call do_copy,${WWW}/$(mkfdir)/${1},$(mkfdir)/${1})))
+	$(eval $(call do_copy,${WWW}/$(mkfdir)/$(strip ${1}),$(mkfdir)/$(strip ${1}))))
 endef
 
 define install_link =
 $(if ${2},\
-	$(eval $(call do_link,${WWW}/${2},$(mkfdir)/${1})),\
-	$(eval $(call do_link,${WWW}/$(mkfdir)/${1},$(mkfdir)/${1})))
+	$(eval $(call do_link,${WWW}/${2},$(mkfdir)/$(strip ${1}))),\
+	$(eval $(call do_link,${WWW}/$(mkfdir)/$(strip ${1}),$(mkfdir)/$(strip ${1}))))
 endef
 
 # -----------------------------------------------------------------------------------
 # Define dependency procedure 
 # -----------------------------------------------------------------------------------
-define do_build_depend =
-$(if $(filter ${BLD}/${3}, ${DIRS}),,DIRS += ${BLD}/${3})
-$(call t2t_to_html,${3}).html: ${BLD}/${3}/${1}
-${BLD}/${3}/${1}: $(addprefix ${3}/, ${2})
-endef
+#define do_build_depend =
+#$(if $(filter ${BUILD}/${3}, ${DIRS}),,DIRS += ${BUILD}/${3})
+#$(call t2t_to_html,${3}).html: ${BUILD}/${3}/${1}
+#${BUILD}/${3}/${1}: $(addprefix ${3}/, ${2})
+#endef
+#
+# Add dependency
+# add filder.html -> {BUILD}/{1} -> {2} dependency, or
+# or  filder.html -> {1}, if second argument is empty.
+#define depend =
+#$(if ${2},\
+#	$(eval $(call do_build_depend,${1},${2},$(mkfdir))),\
+#	$(eval $(call do_depend,${1},$(mkfdir))))
+#endef
 
 define do_depend =
 $(call t2t_to_html, ${2}).html: ${2}/${1}
-$(info $(call t2t_to_html, ${2}).html: ${2}/${1})
 endef
 
-# Add dependency
-# add filder.html -> {BLD}/{1} -> {2} dependency, or
-# or  filder.html -> {1}, if second argument is empty.
-define depend =
-$(if ${2},\
-	$(eval $(call do_build_depend,${1},${2},$(mkfdir))),\
-	$(eval $(call do_depend,${1},$(mkfdir))))
+define do_build =
+$(if $(filter ${BUILD}/$(mkfdir), ${DIRS}),,DIRS += ${BUILD}/$(mkfdir))
+$(call t2t_to_html,$(mkfdir)).html: ${BUILD}/$(mkfdir)/${1}
+$(if $(wildcard $(mkfdir)/Makefile),\
+${BUILD}/$(mkfdir)/${1}: $(addprefix $(mkfdir)/, ${2}) |${BUILD}/$(mkfdir)
+	make -C $(mkfdir) BLD=$(abspath ${BUILD}/$(mkfdir)))
 endef
+
+# Add dependency folder.html -> ${BUILD}/folder/{2},
+# Execute folder/Makefile if exists. 
+build = $(eval $(call do_build,$(strip ${1}),${2}))
+
+# Add dependency folder.html -> {1}.
+depend = $(eval $(call do_depend,$(strip ${1}),$(mkfdir)))
+
 
 # -----------------------------------------------------------------------------------
 # Include Makefiles

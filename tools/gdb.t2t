@@ -1,10 +1,62 @@
 
-== gdb ==
+                                      = GDB =
+=== Print ===
+``` p/f addr
+: //f// - format
+  : **d**
+          as integer in signed decimal.
+  : **u**
+          as integer in unsigned decimal.
+  : **o**
+          as integer in octal.
+  : **t**
+          as integer in binary.
+  : **a**
+          as an address (+ nearest symbol).
+  : **c**
+          as both the numerical value and its character representation.
+  : **f**
+          as a floating point number.
+  : **s**
+          as a string, if possible.
+  : **z**
+          like ‘x’ formatting, but leading zeros are printed to pad the value to the size of the integer type.
+  : **r**
+          using the ‘raw’ formatting.
 
-= config =
 
+Type information:
+``` ptype addr
+
+Useful option:
+``` set print pretty on
+
+=== Examine memory ===
+``` x/nfu addr
+: //n// - the repeat count;
+
+: //f// - the display format (one of the formats used by print);
+ : **s**
+         null-terminated string),
+ : **i**
+         machine instruction,
+ : **x**
+         hexadecimal (default);
+
+: //u// - the unit size.
+ : **b**
+        Bytes.
+ : **h**
+        Halfwords (two bytes).
+ : **w**
+        Words (four bytes). This is the initial default.
+ : **g**
+        Giant words (eight bytes).
+
+
+                                   == config ==
 Allowing attaching to foreign processes
-''' $ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+``` $ echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
 
-For /etc/sysctl.d/ptrace.conf
-''' kernel.yama.ptrace_scope = 0
+For ``/etc/sysctl.d/ptrace.conf``
+``` kernel.yama.ptrace_scope = 0
