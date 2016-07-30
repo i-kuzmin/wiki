@@ -1,0 +1,8 @@
+
+== tshark ==
+extract data only from fist packet
+``` $ tshark -c 1 -T fields -e data -r etc/ODAX.pcap | xxd -r -p > etc/ODAX.1.raw
+
+extract 232 packet from pcap
+``` $ editcap -r ODAX.live.2.pcap ODAX.live.2.232.pcap 232
+

@@ -1,0 +1,5 @@
+
+== date ==
+
+Encode timestamptralia/Sydney
+``` $ TZ=Australia/Sydney date --date=@1489582800

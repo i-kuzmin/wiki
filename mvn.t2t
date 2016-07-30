@@ -1,0 +1,13 @@
+
+# Test
+Running a set of methods in a single test
+''' $ mvn -Dtest=TestCircle#testOne+testTwo test
+
+Skip tests
+''' $ mvn install -DskipTests
+
+Copy project dependencies:
+''' $ mvn -nsu dependency:copy-dependencies
+''' $ mvn -nsu dependency:unpack-dependencies
+''' $ mvn -nsu dependency:resolve -Dclassifier=javadoc
+
