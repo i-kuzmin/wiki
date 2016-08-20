@@ -63,3 +63,10 @@ Working Devices : 2
        3       8       17        1      active sync   /dev/sdb1
 ```
 
+                                == SSD + HDD RAID ==
+
+Force avoid reading from sdc6 device:
+``` # mdadm --add /dev/md6 --write-mostly /dev/sdc6
+
+If device already in the array:
+``` #  mdadm /dev/md1 --fail /dev/sdc1 --remove /dev/sdc1 --add -W /dev/sdc1 

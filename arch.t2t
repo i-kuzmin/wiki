@@ -16,6 +16,28 @@ $ xdg-mime default chromium.desktop text/html
 
 ``` $ timedatectl set-timezone
 
+== System Usage Statistics ==
+`systat` package - good tool (requires `systat.service` be started)
+
+iostatistics:
+```
+$ iostat -x
+Linux 4.6.4-1-ARCH (idev)       08/20/2016      _x86_64_        (4 CPU)
+
+avg-cpu:  %user   %nice %system %iowait  %steal   %idle
+           2,48    0,00    0,93    4,43    0,00   92,15
+
+Device:         rrqm/s   wrqm/s     r/s     w/s    rkB/s    wkB/s avgrq-sz avgqu-sz   await r_await w_await  svctm  %util
+sda               1,08   310,44    3,26   66,58   393,23 36175,26  1047,20     0,12    1,73    0,73    1,78   0,81   5,67
+sdc             534,20     3,79  120,15    4,77 41687,69  1422,90   690,21     5,96   47,66   15,51  857,18   3,30  41,20
+sdb               0,41   229,00    3,61   54,06   119,74 18990,19   662,79     0,31    5,46    7,68    5,31   1,24   7,15
+md1               0,00     0,00    0,73    0,08    84,82    15,55   248,38     0,00    0,00    0,00    0,00   0,00   0,00
+md5               0,00     0,00    0,13    0,96     5,43   647,95  1203,76     0,00    0,00    0,00    0,00   0,00   0,00
+md4               0,00     0,00    3,20    3,67    75,07   195,10    78,63     0,00    0,00    0,00    0,00   0,00   0,00
+md3               0,00     0,00    5,73    2,20   137,42   486,45   157,35     0,00    0,00    0,00    0,00   0,00   0,00
+
+```
+
 
 
 == Useful Archlinux Packages ==
