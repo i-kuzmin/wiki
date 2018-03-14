@@ -1,4 +1,9 @@
 
+                               = General information =
+
+To disable memory randomization:
+``` $ setarch `uname -m` -R bash
+
                                       = GDB =
 === Print ===
 ``` p/f addr
@@ -28,8 +33,9 @@
 Type information:
 ``` ptype addr
 
-Useful option:
+Useful options:
 ``` set print pretty on
+``` set disassembly-flavor intel
 
 === Examine memory ===
 ``` x/nfu addr
@@ -53,6 +59,17 @@ Useful option:
  : **g**
         Giant words (eight bytes).
 
+
+=== Examine threads ===
+
+``` thread apply all bt
+
+=== Break points ===
+Hardware read:
+``` rwatch *0xfeedface
+
+remove all:
+``` delete [breakpoints]
 
                                    == config ==
 Allowing attaching to foreign processes

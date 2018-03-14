@@ -1,0 +1,12 @@
+
+== Ack ==
+
+= Useful options =
+
+-l, --files-with-matches
+   Only print the filenames of matching files, instead of the matching text.
+
+-L, --files-without-matches
+   Only print the filenames of files that do NOT match.
+
+--passthru

@@ -79,7 +79,9 @@ function do_edit()
 {
     local file=$1; shift;
     cd $RT
-    vim $file.t2t $*
+    if vim $file.t2t $*; then
+        do_make
+    fi
 }
 
 function do_usage()

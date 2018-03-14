@@ -13,3 +13,23 @@ $ rm -rf .git/modules/submodule
 ```
 === Update all submodules ===
 ``` $ git submodule foreach git pull
+
+=== Multiple Working Dirs ===
+http://stackoverflow.com/questions/6270193/multiple-working-directories-with-git
+create:
+``` $ git worktree add <path>
+
+Simply remove <path> when it is no longer required.
+
+To cleanup all links on removed worktrees:
+``` $ git worktree prune
+
+=== Commits beyond branches ===
+``` $ git rev-list --all --pretty=short -- file.name
+
+=== List branches for particular commit ===
+For local brunches:
+``` git branch --contains <commit>
+
+List remote tracking branches as well:
+``` git branch -r --contains <commit>

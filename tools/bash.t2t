@@ -1,0 +1,5 @@
+
+== bash ==
+
+Run interactive:
+``` $ grep "keyword" -l |xargs sh -c 'vim "$@" </dev/tty'
