@@ -12,6 +12,15 @@
 # mdadm /dev/md1 --fail /dev/sdb1 --remove /dev/sdb1
 # mdadm /dev/md1 --add /dev/sdb1
 ```
+                                 == Remove Array ==
+```
+# mdadm /dev/md<x> --stop
+```
+
+                          == Clean out super-block data ==
+```
+# mdadm --zero-superblock /dev/sd<x>
+```
 
                             == Volume information ==
 ```

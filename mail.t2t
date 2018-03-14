@@ -92,6 +92,12 @@ set spoolfile="+/i.g.kuzmin.spb@gmail.com/INBOX"
 folder-hook i.g.kuzmin.spb@gmail.com 'set from="Ilya Kuzmin<i.g.kuzmin.spb@gmail.com>" record="+i.g.kuzmin.spb@gmail.com/sent"
 ```
 
+== Read Mail (SUP) ==
+
+
+=== SUP references ===
+- [ Arch https://wiki.archlinux.org/index.php/sup]
+
 == Send Mail (msmtp) ==
 ~/.msmtprc
 ```
@@ -113,3 +119,4 @@ auth on
 user i.g.kuzmin.spb@gmai.com
 account default : i.g.kuzmin.spb@gmai.com
 ```
+

@@ -12,7 +12,6 @@ After [hid-apple-patched https://github.com/free5lot/hid-apple-patched] install
 ```
 $ ls /sys/module/hid_apple/parameters/
 ejectcd_as_delete  fnmode  iso_layout  rightalt_as_rightctrl  swap_fn_leftctrl
-swap_opt_cmd
 ```
                              == Permanent config ==
 

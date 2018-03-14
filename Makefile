@@ -1,3 +1,5 @@
+.SUFFIX:
+
 .PHONY: all dirs html clean deepclean
 
 all: html
@@ -44,9 +46,8 @@ endef
 # Converts t2t source file name to html destination file name
 #
 t2t_to_html = $(addprefix ${WWW}/,\
-			  	$(subst /,_,\
 				$(subst .t2t$,.html,\
-				$(subst ./,,${1}))))
+					$(subst ./,,${1})))
 
 # -----------------------------------------------------------------------------------
 # Install files procedure 
@@ -120,6 +121,7 @@ define t2t_html_rule =
 html: ${1}
 ${1}: ${2} |dirs
 	@echo "# $$< -> $$@"
+	@mkdir -p $$(dir $$@)
 	txt2tags --config-file .tools/txt2tagsrc -t xhtml -o $$@ -q $$<
 CLEAN += ${1}
 endef
