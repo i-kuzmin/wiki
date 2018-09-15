@@ -46,7 +46,7 @@ endef
 # Converts t2t source file name to html destination file name
 #
 t2t_to_html = $(addprefix ${WWW}/,\
-				$(subst .t2t$,.html,\
+				$(subst .t2t,.html,\
 					$(subst ./,,${1})))
 
 # -----------------------------------------------------------------------------------
